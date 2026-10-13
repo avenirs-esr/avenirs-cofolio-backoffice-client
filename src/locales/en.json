@@ -1,0 +1,55 @@
+{
+  "global": {
+    "buttons": {
+      "close": "Close"
+    },
+    "breadcrumb": {
+      "ariaLabel": "Breadcrumb",
+      "expandButtonLabel": "View breadcrumb"
+    },
+    "detail": "Detail",
+    "EmptyState": {
+      "defaultTitle": "No items to display"
+    },
+    "error": {
+      "api": {
+        "BAD_REQUEST": "Bad request",
+        "USER_NOT_FOUND": "User not found"
+      },
+      "generic": "An error occurred. Please try again later."
+    },
+    "header": {
+      "languageSwitcher": "Change language"
+    },
+    "MainNavigation": {
+      "home": "Home",
+      "termsOfService": "Terms of Service"
+    },
+    "navigation": {
+      "SkipLinks": {
+        "ariaLabel": "Skip links",
+        "footer": "Go to footer",
+        "main": "Go to main content"
+      }
+    },
+    "overlay": {
+      "InformationTooltip": {
+        "triggerAriaLabel": "Informations"
+      }
+    },
+    "QuerySuspense": {
+      "defaultEmptyStateMessage": "No data to display",
+      "defaultErrorTitle": "An error occurred while loading the data"
+    },
+    "text": "Text",
+    "views": {
+      "NotFoundView": {
+        "buttonLabel": "Back to Home",
+        "pageNotFound": {
+          "description": "The page you are looking for does not exist or is no longer available.",
+          "title": "404 - Page Not Found"
+        }
+      }
+    }
+  }
+}
