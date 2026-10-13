@@ -1,0 +1,19 @@
+name: PR Quality Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - develop
+      - main
+
+jobs:
+  run-code-quality-checks:
+    uses: avenirs-esr/avenirs-workflows/.github/workflows/frontend-quality-check-workflow.yaml@main
+    secrets: inherit
+
+  run-a11y-test-and-deploy-reports:
+    uses: avenirs-esr/avenirs-workflows/.github/workflows/a11y-test-and-deploy-reports-workflow.yaml@main
+    with:
+      build-command: 'npm run build-only:development'
+    secrets: inherit
