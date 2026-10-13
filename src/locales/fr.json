@@ -1,0 +1,55 @@
+{
+  "global": {
+    "buttons": {
+      "close": "Fermer"
+    },
+    "breadcrumb": {
+      "ariaLabel": "Fil d'Ariane",
+      "expandButtonLabel": "Voir le fil d'Ariane"
+    },
+    "detail": "Détail",
+    "EmptyState": {
+      "defaultTitle": "Aucun élément à afficher"
+    },
+    "error": {
+      "api": {
+        "BAD_REQUEST": "Requête invalide",
+        "USER_NOT_FOUND": "Utilisateur introuvable"
+      },
+      "generic": "Une erreur est survenue. Veuillez réessayer ultérieurement."
+    },
+    "header": {
+      "languageSwitcher": "Changer de langue"
+    },
+    "MainNavigation": {
+      "home": "Accueil",
+      "termsOfService": "Conditions d'utilisation"
+    },
+    "navigation": {
+      "SkipLinks": {
+        "ariaLabel": "Accès rapide",
+        "footer": "Aller au pied de page",
+        "main": "Aller au contenu principal"
+      }
+    },
+    "overlay": {
+      "InformationTooltip": {
+        "triggerAriaLabel": "Informations"
+      }
+    },
+    "QuerySuspense": {
+      "defaultEmptyStateMessage": "Aucune donnée à afficher",
+      "defaultErrorTitle": "Une erreur est survenue lors du chargement des données"
+    },
+    "text": "Texte",
+    "views": {
+      "NotFoundView": {
+        "buttonLabel": "Retour à l'accueil",
+        "pageNotFound": {
+          "description": "La page que vous recherchez n'existe pas ou plus.",
+          "title": "404 - Page introuvable"
+        }
+      }
+    }
+  }
+}
