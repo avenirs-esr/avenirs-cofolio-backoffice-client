@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    // Cross-editor config
+    "editorconfig.editorconfig",
+
+    // Git
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+
+    // JavaScript
+    "dbaeumer.vscode-eslint",
+
+    // Vue.js
+    "Vue.volar",
+    "Vue.vscode-typescript-vue-plugin",
+
+    // CSS
+    "csstools.postcss",
+    "stylelint.vscode-stylelint",
+
+    // E2E / BDD
+    "alexkrechik.cucumberautocomplete"
+  ]
+}
