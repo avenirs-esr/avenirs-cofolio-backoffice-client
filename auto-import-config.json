@@ -1,0 +1,21 @@
+{
+  "vue": [
+    "ref",
+    "computed",
+    "reactive",
+    "watch",
+    "onMounted",
+    "onUnmounted",
+    "defineComponent",
+    "defineProps",
+    "defineEmits",
+    "defineExpose",
+    "withDefaults",
+    "toRef",
+    "toRefs",
+    "provide",
+    "inject",
+    "watchEffect",
+    "useTemplateRef"
+  ]
+}
