@@ -64,6 +64,60 @@ BddTest().given('a browser locale getter', () => {
       expect(getBrowserLocale()).toBe('fr')
     })
   })
+
+  BddTest().and('a persisted locale', () => {
+    let originalStudentUser: string | null
+
+    beforeEach(() => {
+      originalStudentUser = localStorage.getItem('studentUser')
+    })
+
+    afterEach(() => {
+      if (originalStudentUser === null) {
+        localStorage.removeItem('studentUser')
+      }
+      else {
+        localStorage.setItem('studentUser', originalStudentUser)
+      }
+    })
+
+    BddTest().when('a supported language is persisted', () => {
+      BddTest().then('it should initialize i18n with the persisted locale', async () => {
+        localStorage.setItem('studentUser', JSON.stringify({
+          languageSelector: { currentLanguage: 'en' }
+        }))
+
+        vi.resetModules()
+        const { i18n: freshI18n } = await import('@/plugins/vue-i18n/vue-i18n')
+
+        expect(freshI18n.global.locale.value).toBe('en')
+      })
+    })
+
+    BddTest().when('the persisted language is unsupported', () => {
+      BddTest().then('it should fall back to the browser locale', async () => {
+        localStorage.setItem('studentUser', JSON.stringify({
+          languageSelector: { currentLanguage: 'ja' }
+        }))
+
+        vi.resetModules()
+        const { i18n: freshI18n } = await import('@/plugins/vue-i18n/vue-i18n')
+
+        expect(freshI18n.global.locale.value).toBe(getBrowserLocale())
+      })
+    })
+
+    BddTest().when('the persisted data is invalid JSON', () => {
+      BddTest().then('it should fall back to the browser locale', async () => {
+        localStorage.setItem('studentUser', '{invalid-json')
+
+        vi.resetModules()
+        const { i18n: freshI18n } = await import('@/plugins/vue-i18n/vue-i18n')
+
+        expect(freshI18n.global.locale.value).toBe(getBrowserLocale())
+      })
+    })
+  })
 })
 
 BddTest().given('a feature locales register', () => {
@@ -76,6 +130,16 @@ BddTest().given('a feature locales register', () => {
   BddTest().when('a feature locale is missing', () => {
     BddTest().then('it should not throw when a non-existent feature is provided', async () => {
       await expect(registerFeatureLocales('non-existent-feature')).resolves.not.toThrow()
+    })
+  })
+})
+
+BddTest().given('an i18n initializer', () => {
+  BddTest().when('initializing feature locales', () => {
+    BddTest().then('it should initialize without throwing', async () => {
+      const { initializeI18n } = await import('@/plugins/vue-i18n/vue-i18n')
+
+      await expect(initializeI18n()).resolves.toBeUndefined()
     })
   })
 })

@@ -1,7 +1,7 @@
 import { createVueApp } from '@/bootstrap'
 
 async function enableMsw () {
-  const basePath = import.meta.env.VITE_BASE_PATH || '/cofolio/'
+  const basePath = import.meta.env.VITE_BASE_PATH || '/cofolio-back-office/'
 
   if (import.meta.env.MODE === 'production' || !__ENABLE_MSW__) {
     return

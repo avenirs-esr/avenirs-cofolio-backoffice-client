@@ -6,7 +6,7 @@ export default defineConfig({
   testDir: './',
   tsconfig: './tsconfig.a11y.json',
   use: {
-    baseURL: 'http://localhost:4173/cofolio/',
+    baseURL: 'http://localhost:4173/cofolio-back-office/',
     headless: !!process.env.CI,
   },
   timeout: GLOBAL_TIMEOUT,

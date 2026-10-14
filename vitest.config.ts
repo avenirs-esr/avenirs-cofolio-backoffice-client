@@ -22,6 +22,8 @@ export default ({ mode }: { mode: string }) => {
     'src/App.vue',
     'public/mockServiceWorker.js',
     'src/__mocks__/*',
+    '**/config.ts',
+    'src/tests/*',
   ]
 
   // TODO: temporary exclusions due to use of @avenirs-esr/avenirs-dsav

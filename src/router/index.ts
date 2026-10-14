@@ -1,8 +1,7 @@
 import { ROUTES } from '@/constants'
 import { termsOfServiceRoutes } from '@/features/terms-of-service/routes'
+import { getPageTitle, scrollBehavior } from '@/router/router.utils'
 import { createRouter, createWebHistory } from 'vue-router'
-
-const MAIN_TITLE = 'Cofolio'
 
 const routes = [
   ...termsOfServiceRoutes,
@@ -24,24 +23,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env?.BASE_URL || ''),
   routes,
-  scrollBehavior: (to, _from, savedPosition) => {
-    if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: 'smooth',
-      }
-    }
-
-    if (savedPosition) {
-      return savedPosition
-    }
-
-    if (window.history.state?.preserveScroll) {
-      return false
-    }
-
-    return { top: 0 }
-  }
+  scrollBehavior
 })
 
 router.beforeEach(async (to) => { // Cf. https://github.com/vueuse/head pour des transformations avancées de Head
@@ -69,8 +51,7 @@ router.beforeEach(async (to) => { // Cf. https://github.com/vueuse/head pour des
   //   }
   // }
 
-  const specificTitle = to.meta.title ? `${to.meta.title} - ` : ''
-  document.title = `${specificTitle}${MAIN_TITLE}`
+  document.title = getPageTitle(to.meta.title as string | null | undefined)
 })
 
 export default router

@@ -101,9 +101,9 @@ BddTest().given('a useToasterStore composable', () => {
 
   BddTest().when('calling addWarningMessage', () => {
     BddTest().then('it should add warning message from string or object', () => {
-      toaster.addInfoMessage('warn')
-      toaster.addInfoMessage({ description: 'e', type: 'error' })
-      expect(toaster.messages.slice(1).every(m => m.type === 'info')).toBe(true)
+      toaster.addWarningMessage('warn')
+      toaster.addWarningMessage({ description: 'e', type: 'error' })
+      expect(toaster.messages.slice(1).every(m => m.type === 'warning')).toBe(true)
     })
   })
 
