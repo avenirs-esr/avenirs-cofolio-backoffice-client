@@ -1,6 +1,17 @@
 import { createCustomFetch, FetchInterceptorManager } from '@/api/fetch'
+import { AvIsoLocaleMap } from '@/types/i18n.types'
 import { BddTest } from '@avenirs-esr/avenirs-dsav/test-utils'
 import { afterEach, beforeEach, expect, type MockedFunction, vi } from 'vitest'
+
+const mockLocale = { value: 'fr' }
+
+vi.mock('@/plugins/vue-i18n', () => ({
+  i18n: {
+    global: {
+      locale: mockLocale,
+    },
+  },
+}))
 
 const mockAddRequestInterceptor = vi.fn()
 const mockAddResponseInterceptor = vi.fn()
@@ -83,7 +94,7 @@ BddTest().given('avenir-esr customFetch', () => {
         expect(result).toEqual({
           method: 'POST',
           headers: {
-            'Accept-Language': 'en-US',
+            'Accept-Language': 'fr-FR',
             'Authorization': __BEARER_TOKEN__,
             'x-signed-context': 'student'
           }
@@ -205,6 +216,50 @@ BddTest().given('avenir-esr customFetch', () => {
         expect(mockAddRequestInterceptor).toHaveBeenCalledTimes(1)
         expect(mockAddRequestInterceptor).toHaveBeenCalledWith(expect.any(Function))
       })
+    })
+  })
+
+  BddTest().and('the locale is not supported', () => {
+    beforeEach(async () => {
+      vi.resetModules()
+      mockLocale.value = 'unknown'
+    })
+
+    BddTest().when('the request is made with an unsupported locale', () => {
+      beforeEach(async () => {
+        const { customFetch } = await import('./fetch-instance')
+        await customFetch('/test', { method: 'GET' })
+      })
+
+      BddTest().then('should use French as the default locale', () => {
+        const interceptor = mockAddRequestInterceptor.mock.calls[0][0]
+
+        expect(interceptor('/test', { method: 'GET' }).headers).toEqual({
+          'x-signed-context': 'student',
+          'Accept-Language': AvIsoLocaleMap.fr,
+          'Authorization': __BEARER_TOKEN__,
+        })
+      })
+    })
+  })
+
+  BddTest().when('the response interceptor receives a response', () => {
+    let response: Response
+    let result: Response
+
+    beforeEach(async () => {
+      vi.resetModules()
+
+      await import('./fetch-instance')
+
+      response = new Response(null, { status: 200 })
+
+      const responseInterceptor = mockAddResponseInterceptor.mock.calls[0][0]
+      result = await responseInterceptor(response)
+    })
+
+    BddTest().then('should return the original response', () => {
+      expect(result).toBe(response)
     })
   })
 })

@@ -15,7 +15,7 @@ export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, process.cwd())
   // const isMSWEnabled = mode !== 'production' && env.VITE_ENABLE_MSW === 'true'
   const baseUrl = env.VITE_API_URL || 'http://localhost:3000'
-  const basePath = env.VITE_BASE_PATH || '/cofolio/'
+  const basePath = env.VITE_BASE_PATH || '/cofolio-back-office/'
 
   return defineConfig({
     define: {

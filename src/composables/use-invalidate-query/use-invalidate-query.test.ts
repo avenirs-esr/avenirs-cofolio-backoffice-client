@@ -34,6 +34,46 @@ BddTest().given('an useInvalidateQuery composable', () => {
 
         expect(mockInvalidateQueries).toHaveBeenCalledWith({ queryKey })
       })
+
+      BddTest().then('it should silently handle query invalidation errors', async () => {
+        const mockInvalidateQueries = vi.fn<QueryClient['invalidateQueries']>()
+          .mockRejectedValue(new Error('Invalidation failed'))
+
+        const { i18n } = await import('@/plugins/vue-i18n')
+        const previousLocale = i18n.global.locale.value
+
+        try {
+          mountComposable(() => {
+            const queryClient = useQueryClient()
+            vi.spyOn(queryClient, 'invalidateQueries')
+              .mockImplementation(mockInvalidateQueries)
+
+            useInvalidateAllQueriesAfterLocaleChange()
+          }, {
+            useTanstack: true,
+            queryClientConfig: {
+              defaultOptions: {
+                queries: { retry: false },
+                mutations: { retry: false }
+              }
+            }
+          })
+
+          i18n.global.locale.value = previousLocale === 'fr' ? 'en' : 'fr'
+
+          await vi.waitFor(() => {
+            expect(mockInvalidateQueries).toHaveBeenCalled()
+          })
+
+          // The rejection must be swallowed by catch(() => {}).
+          await expect(
+            mockInvalidateQueries.mock.results[0].value
+          ).rejects.toThrow('Invalidation failed')
+        }
+        finally {
+          i18n.global.locale.value = previousLocale
+        }
+      })
     })
   })
 
