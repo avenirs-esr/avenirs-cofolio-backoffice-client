@@ -22,19 +22,6 @@ interceptorManager.addRequestInterceptor((url: string, options: RequestInit) => 
 })
 
 interceptorManager.addResponseInterceptor(async (response: Response): Promise<Response> => {
-// COFOLIO handling
-// interceptorManager.addResponseInterceptor(async (response: Response, context: ResponseInterceptorContext): Promise<Response> => {
-  // const skip = (context.options as FetchOptions).skipUnauthorizedHandling
-
-  // if (response.status === HttpStatusCode.UNAUTHORIZED && !skip) {
-  //   const { useAuthStore } = await import('@/features/auth/global/stores/auth.store')
-  //   const authStore = useAuthStore()
-
-  //   await authStore.ensureAuthenticated({ force: true })
-
-  //   return new Promise<Response>(() => {})
-  // }
-
   return response
 })
 

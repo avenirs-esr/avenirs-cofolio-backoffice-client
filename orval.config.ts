@@ -1,18 +1,5 @@
 import { defineConfig } from 'orval'
 
-const FORCED_MUTATION_OPERATIONS = [
-  'downloadAttachment',
-  'downloadFeedbackAttachment',
-  'downloadActivityFile',
-  'downloadDraftFile',
-  'downloadMedia',
-]
-
-const FORCED_QUERY_OPERATIONS = [
-  'getLockedDeclaredActivities',
-  'tracesView',
-]
-
 export default defineConfig({
   'avenir-esr': {
     input: {
@@ -26,31 +13,6 @@ export default defineConfig({
       mode: 'tags',
       clean: true,
       override: {
-        operations: {
-          ...(FORCED_MUTATION_OPERATIONS.reduce((acc, operation) => {
-            acc[operation] = {
-              query: {
-                useQuery: false,
-                useMutation: true,
-              }
-            }
-            return acc
-          }, {})),
-          ...(FORCED_QUERY_OPERATIONS.reduce((acc, operation) => {
-            acc[operation] = {
-              query: {
-                useQuery: true,
-                useMutation: false,
-              }
-            }
-            return acc
-          }, {})),
-          searchExternalSkills: {
-            query: {
-              useInfinite: true,
-            }
-          },
-        },
         fetch: {
           includeHttpResponseReturnType: false,
         },
