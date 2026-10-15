@@ -13,7 +13,6 @@ import autoImportConfig from './auto-import-config.json' with { type: 'json' }
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, process.cwd())
-  // const isMSWEnabled = mode !== 'production' && env.VITE_ENABLE_MSW === 'true'
   const baseUrl = env.VITE_API_URL || 'http://localhost:3000'
   const basePath = env.VITE_BASE_PATH || '/cofolio-back-office/'
 
@@ -57,28 +56,10 @@ export default ({ mode }: { mode: string }) => {
       }),
       Components({
         extensions: ['vue'],
-        dirs: ['src/components'], // Autoimport de vos composants qui sont dans le dossier `src/components`
+        dirs: ['src/components'],
         include: [/\.vue$/, /\.vue\?vue/],
         dts: './src/components.d.ts',
       }),
-      // plugin disabled because currently we have same routes that are not yet implemented and mock is used in production
-      // TODO: uncomment when each route has its orval generated file
-      // !isMSWEnabled && {
-      //   name: 'ignore-mocks-when-msw-disabled',
-      //   enforce: 'pre',
-      //   resolveId (source) {
-      //     if (source.includes('__mocks__')) {
-      //       return source
-      //     }
-      //     return null
-      //   },
-      //   load (id) {
-      //     if (id.includes('__mocks__')) {
-      //       return 'export default {}'
-      //     }
-      //     return null
-      //   }
-      // }
     ],
     base: basePath,
     resolve: {
