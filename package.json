@@ -40,7 +40,7 @@
     "@vueuse/router": "^14.1.0",
     "date-fns": "^4.1.0",
     "docx": "^9.7.1",
-    "dompurify": "^3.4.13",
+    "dompurify": "^3.4.16",
     "driver.js": "^1.8.0",
     "focus-trap": "^7.5.4",
     "focus-trap-vue": "^4.0.3",
