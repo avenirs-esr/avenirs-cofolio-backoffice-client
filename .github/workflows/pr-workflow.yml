@@ -9,11 +9,14 @@ on:
 
 jobs:
   run-code-quality-checks:
-    uses: avenirs-esr/avenirs-workflows/.github/workflows/frontend-quality-check-workflow.yaml@main
+    uses: avenirs-esr/avenirs-workflows/.github/workflows/frontend-quality-check-workflow.yaml@build/us-3043-pnpm-monorepo
+    with:
+      package-manager: npm
     secrets: inherit
 
   run-a11y-test-and-deploy-reports:
-    uses: avenirs-esr/avenirs-workflows/.github/workflows/a11y-test-and-deploy-reports-workflow.yaml@main
+    uses: avenirs-esr/avenirs-workflows/.github/workflows/a11y-test-and-deploy-reports-workflow.yaml@build/us-3043-pnpm-monorepo
     with:
+      package-manager: npm
       build-command: 'npm run build-only:development'
     secrets: inherit
